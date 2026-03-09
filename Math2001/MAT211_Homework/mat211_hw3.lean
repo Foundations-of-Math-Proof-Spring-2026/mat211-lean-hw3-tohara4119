@@ -131,18 +131,31 @@ up in Lean. -/
 
 /- Exercise #1 -/
 example {a b : ℚ} (h1 : 3 ≤ a) (h2 : a + 2 * b ≥ 4) : a + b ≥ 3 :=
-  sorry
+  calc
+    a + b = 1/2 * a + 1/2 * (a + 2 * b) := by ring
+    _ ≥ 1/2 * 3 + 1/2 * (4) := by rel[h1,h2]
+    _ = 3.5 := by ring
+    _ ≥ 3 := by numbers
 
 /- Exercise #2 -/
 example {n : ℤ} (hn : n ≥ 10) : n ^ 4 - 2 * n ^ 2 > 3 * n ^ 3 :=
-  sorry
-
+  calc
+    n ^ 4 - 2 * n ^ 2 = n ^ 2 * (n * (n - 3) - 2)  + 3 * n ^ 3 := by ring
+    _ ≥ 10 ^ 2 * (10 * (10 - 3) - 2) + 3 * n ^ 3 := by rel[hn]
+    _ = 6800 + 3 * n ^ 3 := by ring
+    _ > 3 * n ^ 3 := by extra
 
 /- Exercise #3 -/
 example {n : ℤ} (h1 : n ≥ 5) : n ^ 2 - 2 * n + 3 > 14 :=
-  sorry
-
+  calc
+    n ^ 2 - 2 * n + 3 = n * (n - 2) + 3 := by ring
+    _ ≥ 5 * (5 - 2) + 3 := by rel[h1]
+    _ = 18 := by ring
+    _ > 14 := by numbers
 
 /- Exercise #4 -/
 example (a b : ℝ) : a ^ 2 + b ^ 2 ≥ 2 * a * b :=
-  sorry
+  calc
+    a ^ 2 + b ^ 2 = (a - b) ^ 2 + 2 * a * b := by ring
+    _ ≥ 0 + 2 * a * b := by extra
+    _ = 2 * a * b := by ring
